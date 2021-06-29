@@ -1,0 +1,25 @@
+ul > li {
+  display:inline;
+}
+
+ul {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 0px;
+}
+
+.letter {
+  width: 25px;
+  color: white;
+  background-color: #2E8CFF;
+  padding: 8px;
+  font-size: 20px;
+  margin-right: 4px;
+  text-align: center;
+}
+
+.letter-container {
+  display: flex;
+
+
+}
