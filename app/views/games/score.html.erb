@@ -1,4 +1,5 @@
 <h1>Results</h1>
 <p><%= @message %><br>
 Your score: <%= @count  %></p>
-<%= link_to "Play again", new_path %>
+<%= link_to "Play again", new_path %><br>
+<%= link_to "Reset the score", reset_path, method:"delete" %>

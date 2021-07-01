@@ -6,7 +6,6 @@ class GamesController < ApplicationController
   def new
     @a = ('A'..'Z').to_a
     @letters = 10.times.map { @a.sample }
-    @count = 0
   end
 
   def included?(letters, word)
@@ -22,22 +21,23 @@ class GamesController < ApplicationController
     return @search["found"]
   end
 
-  def score
-    if !included?(params[:letters], params[:word])
-      @message = "Sorry, #{params[:word]} is out of the grid"
-    elsif in_dict
-      @message = "Well done! #{params[:word]} is a valid English word"
-      @count = params[:word].length
-    else
-      @message = "Sorry, #{params[:word]} is not an English word"
-    end
+  def reset
+    session[:score] = 0
+    redirect_to :new
   end
 
-  private
-
-  def current_user
-    @_current_user ||= session[:current_user_id] &&
-      User.find_by(id: session[:current_user_id])
+  def score
+    session[:score] = 0 if session[:score].nil?
+    @count = if !included?(params[:letters], params[:word])
+      @message = "Sorry, #{params[:word]} is out of the grid"
+      session[:score]
+    elsif in_dict
+      @message = "Well done! #{params[:word]} is a valid English word"
+      session[:score] = session[:score].to_i + 1
+    else
+      @message = "Sorry, #{params[:word]} is not an English word"
+      session[:score]
+    end
   end
 
 end
